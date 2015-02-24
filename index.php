@@ -14,46 +14,36 @@
  
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing,places&signed_in=true"></script>
 	<?php  
-		define('DB_HOST', 'localhost');
-		define('DB_USER', 'root');
-		define('DB_PASS', 'developer');
-		define('DB_NAME', 'bdwebdiresa02');
-		define('DB_CHAR', 'utf8');
+		define('DB_HOST', 'localhost'); define('DB_USER', 'root'); define('DB_PASS', 'developer'); define('DB_NAME', 'bdwebdiresa02'); define('DB_CHAR', 'utf8');
 		$opt = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 		$pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, $opt);
+
 		$sql_bonilla ="SELECT nom_este, latitud, longitud, dir_cent FROM tb_cen_anexo where nom_red='BONILLA'";
 		$datos = $pdo->query( $sql_bonilla);  
-        $lista_Bonilla = $datos->fetchall(PDO::FETCH_NUM) ; 
+    $lista_Bonilla = $datos->fetchall(PDO::FETCH_NUM) ; 
 
     $sql_bepeca ="SELECT nom_este, latitud, longitud, dir_cent FROM tb_cen_anexo where nom_red='BEPECA'";
     $datos = $pdo->query( $sql_bepeca);  
-        $lista_Bepeca = $datos->fetchall(PDO::FETCH_NUM) ; 
+    $lista_Bepeca = $datos->fetchall(PDO::FETCH_NUM) ; 
         
     $sql_ventanilla ="SELECT nom_este, latitud, longitud, dir_cent FROM tb_cen_anexo where nom_red='VENTANILLA'";
     $datos = $pdo->query( $sql_ventanilla);  
-        $lista_ventanilla = $datos->fetchall(PDO::FETCH_NUM) ; 
- 
+    $lista_ventanilla = $datos->fetchall(PDO::FETCH_NUM) ;  
 	?>
     <script>
 var map;
 function initialize() {
   var mapOptions = {
-    zoom: 13,
-    center: new google.maps.LatLng(-12.019282, -77.090738),
-     
+    zoom: 13, center: new google.maps.LatLng(-12.019282, -77.090738),     
   };
-
-  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
- 
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); 
   //http://maps.google.com/mapfiles/kml/paddle/
   <?php 
     $icoboni = 'blu-square.png';
     $icobepe = 'grn-diamond.png';
     $icovent = 'ylw-circle.png';
   ?>
-  var icoboni = '<?php echo $icoboni?>'; 
-  var icobepe = '<?php echo $icobepe?>'; 
-  var icovent = '<?php echo $icovent?>'; 
+  var icoboni = '<?php echo $icoboni?>';  var icobepe = '<?php echo $icobepe?>';  var icovent = '<?php echo $icovent?>'; 
  
   <?php
   $i=1;
@@ -106,9 +96,6 @@ function initialize() {
 
       $i++;
     }  
-
- 
-
   ?> 
 
 
@@ -119,8 +106,6 @@ function initialize() {
   autocomplete.bindTo('bounds', map);
 
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-
 
   var infowindow = new google.maps.InfoWindow();
   var marker = new google.maps.Marker({
@@ -147,7 +132,6 @@ function initialize() {
     }
 
     // Escribe texto o la dirección de un sitio web, o bien, traduce un documento.
- 
     marker.setPlace({
       placeId: place.place_id,
       location: place.geometry.location 
@@ -164,7 +148,6 @@ function initialize() {
 }
  
  
-
  google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
@@ -188,7 +171,6 @@ function initialize() {
     <img src="<?php echo  $icovent ?>" width='25' height='25' class='imgdet'> : Red Ventanilla  <br/>
    </div>
     <input id="pac-input" class="controls" type="text" placeholder="Ingrese Lugar">
-    <div id="map-canvas"></div>
-    
+    <div id="map-canvas"></div>    
   </body>
 </html>
